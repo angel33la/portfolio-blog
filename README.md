@@ -9,21 +9,15 @@ This is a portfolio site template complete with a blog. Includes:
 - Syntax highlighting
 - Tailwind v4
 - Vercel Speed Insights / Web Analytics
-- Geist font
+- Geist fonts
+- Dark Mode
+- Responsive design
+- Customizable colors and fonts
+- And more!
 
-## Demo
+## Getting Started
 
-https://portfolio-blog-starter.vercel.app
-
-## How to Use
-
-You can choose from one of the following two methods to use this repository:
-
-### One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
+You can choose from one of the following two methods to use this repository
 
 ### Clone and Deploy
 
