@@ -11,7 +11,9 @@ export default function Page() {
         {`I'm a web developer  and a tech enthusiast. I enjoy making web sites that are user-friendly and efficient. To be able to turn my ideas into reality, I rely on a variety of tools and technologies. Being curious about how things work has always been one of my strengths. I am constantly learning new things and keeping up with the latest trends. Making the web more accessible and enjoyable for everyone is my passion. Here are some of my recent blog posts, as well as links to my projects and contributions. Please feel free to explore and reach out if you'd like to connect! I can answer any questions about web development or share insights on the latest industry trends. Thank you for visiting my portfolio page!`}
       </p>
       <div className="my-8">
+        <h3 className="text-xl font-bold">Recent Posts</h3>
         <BlogPosts />
+        <h3 className="text-xl font-bold mt-12 mb-4">Projects</h3>
         <Project />
       </div>
     </section>
