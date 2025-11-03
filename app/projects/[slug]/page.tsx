@@ -1,20 +1,22 @@
-import { notFound } from 'next/navigation'
-import { CustomMDX } from 'app/components/mdx'
-import { formatDate, getProjectPages } from 'app/projects/utils'
-import { baseUrl } from 'app/sitemap'
+import { notFound } from "next/navigation";
+import { CustomMDX } from "app/components/mdx";
+import { formatDate, getProjectPages } from "app/projects/utils";
+import { baseUrl } from "app/sitemap";
 
 export async function generateStaticParams() {
-  let projects = getProjectPages()
+  let projects = getProjectPages();
 
   return projects.map((project) => ({
     slug: project.slug,
-  }))
+  }));
 }
 
 export function generateMetadata({ params }) {
-  let project = getProjectPages().find((project) => project.slug === params.slug)
+  let project = getProjectPages().find(
+    (project) => project.slug === params.slug
+  );
   if (!project) {
-    return
+    return;
   }
 
   let {
@@ -22,10 +24,10 @@ export function generateMetadata({ params }) {
     publishedAt: publishedTime,
     summary: description,
     image,
-  } = project.metadata
+  } = project.metadata;
   let ogImage = image
     ? image
-    : `${baseUrl}/og?title=${encodeURIComponent(title)}`
+    : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
 
   return {
     title,
@@ -33,7 +35,7 @@ export function generateMetadata({ params }) {
     openGraph: {
       title,
       description,
-      type: 'article',
+      type: "article",
       publishedTime,
       url: `${baseUrl}/projects/${project.slug}`,
       images: [
@@ -43,19 +45,24 @@ export function generateMetadata({ params }) {
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: [ogImage],
     },
-  }
+  };
 }
 
-export default function Project({ params }) {
-      let project = getProjectPages().find((project) => project.slug === params.slug)
+export default async function Project({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  let project = getProjectPages().find((project) => project.slug === slug);
 
   if (!project) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -65,8 +72,8 @@ export default function Project({ params }) {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
             headline: project.metadata.title,
             datePublished: project.metadata.publishedAt,
             dateModified: project.metadata.publishedAt,
@@ -76,8 +83,8 @@ export default function Project({ params }) {
               : `/og?title=${encodeURIComponent(project.metadata.title)}`,
             url: `${baseUrl}/projects/${project.slug}`,
             author: {
-              '@type': 'Person',
-              name: 'My Portfolio',
+              "@type": "Person",
+              name: "My Portfolio",
             },
           }),
         }}
@@ -94,5 +101,5 @@ export default function Project({ params }) {
         <CustomMDX source={project.content} />
       </article>
     </section>
-  )
+  );
 }
