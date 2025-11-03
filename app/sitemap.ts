@@ -1,7 +1,9 @@
 import { getBlogPosts } from "app/blog/utils";
 import { getProjectPages } from "app/projects/utils";
 
-export const baseUrl = "https://portfolio-blog-starter.vercel.app";
+// Update this to your Vercel domain after deployment
+export const baseUrl =
+  "https://portfolio-blog-iu2hueim3-angel1130las-projects.vercel.app";
 
 export default async function sitemap() {
   let blogs = getBlogPosts().map((post) => ({
