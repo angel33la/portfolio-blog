@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   },
   description: "Portfolio of Angella, Web Developer.",
   icons: {
-    icon: "/images/pixelmeAngella.png",
-    apple: "/images/pixelmeAngella.png",
+    icon: "/images/web-dev.png",
+    apple: "/images/web-dev.png",
   },
   openGraph: {
     title: "Angella's Blog Portfolio",
