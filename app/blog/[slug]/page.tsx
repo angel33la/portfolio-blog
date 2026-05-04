@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
 import { formatDate, getBlogPosts } from "app/blog/utils";
@@ -62,11 +63,22 @@ export default async function Blog({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let post = getBlogPosts().find((post) => post.slug === slug);
+  let allPosts = getBlogPosts();
+  let post = allPosts.find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
   }
+
+  let relatedPosts = allPosts
+    .filter((item) => item.slug !== slug)
+    .sort((a, b) => {
+      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+        return -1;
+      }
+      return 1;
+    })
+    .slice(0, 3);
 
   return (
     <section>
@@ -103,6 +115,30 @@ export default async function Blog({
       <article className="prose">
         <CustomMDX source={post.content} />
       </article>
+
+      {relatedPosts.length > 0 ? (
+        <section className="mt-12 border-t border-neutral-200 dark:border-neutral-800 pt-8">
+          <h2 className="font-semibold text-xl tracking-tighter mb-4">
+            More posts
+          </h2>
+          <div className="space-y-3">
+            {relatedPosts.map((relatedPost) => (
+              <Link
+                key={relatedPost.slug}
+                href={`/blog/${relatedPost.slug}`}
+                className="block rounded-lg border border-neutral-200/70 dark:border-neutral-800 px-4 py-3 transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-900/40"
+              >
+                <p className="font-medium tracking-tight text-neutral-900 dark:text-neutral-100">
+                  {relatedPost.metadata.title}
+                </p>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  {formatDate(relatedPost.metadata.publishedAt)}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </section>
   );
 }
