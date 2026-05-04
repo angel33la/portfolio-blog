@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // No special config needed for Vercel deployment
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 module.exports = nextConfig;
